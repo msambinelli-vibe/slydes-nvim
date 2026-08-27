@@ -46,6 +46,8 @@ Neovim support for the Slydes presentation language (`*.sly`).
 
 The parser is generated and committed in `tree-sitter-sly/src/parser.c`, so
 installation only needs a C compiler; it does not need the Tree-sitter CLI.
+The plugin also ships `ftdetect/sly.lua`, allowing lazy.nvim to identify
+`*.sly` before the plugin itself has been loaded.
 
 If the plugin was installed without the build callback, run:
 
@@ -123,4 +125,3 @@ tree-sitter test
 
 The `tests/fixture.sly`, `tests/headless.lua`, and `tests/snacks.lua` files cover
 parsing, captures, folding, commands, and Snacks query integration.
-

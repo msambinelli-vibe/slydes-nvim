@@ -3,6 +3,8 @@ local root = assert(vim.env.SLIDES_NVIM_TEST_ROOT, "SLIDES_NVIM_TEST_ROOT is req
 require("nvim-treesitter").setup({ install_dir = "/tmp/slides-nvim-test/site" })
 require("slides").setup({ snacks = false, notify_missing_parser = false })
 
+assert(vim.filetype.match({ filename = "presentation.sly" }) == "sly", "*.sly must resolve to the sly filetype")
+
 vim.cmd.edit(root .. "/tests/fixture.sly")
 assert(vim.bo.filetype == "sly", "expected the sly filetype")
 
@@ -12,6 +14,7 @@ assert(tree and not tree:root():has_error(), "fixture must parse without errors"
 
 local captures = {}
 local query = assert(vim.treesitter.query.get("sly", "highlights"))
+assert(#vim.api.nvim_get_runtime_file("queries/sly/highlights.scm", true) > 0, "missing runtime highlight query")
 for id in query:iter_captures(tree:root(), 0) do
   captures[query.captures[id]] = true
 end

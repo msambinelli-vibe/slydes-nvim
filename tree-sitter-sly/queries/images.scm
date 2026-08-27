@@ -15,4 +15,3 @@
   content: (dollar_formula_block_content) @image.content)
   (#set! image.lang "latex")
   (#set! image.ext "math.tex")) @image
-

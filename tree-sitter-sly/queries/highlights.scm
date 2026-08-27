@@ -10,24 +10,12 @@
 (section_marker) @punctuation.special
 
 (heading) @markup.heading
-(heading
-  marker: (heading_marker) @markup.heading.1
-  (#eq? @markup.heading.1 "#"))
-(heading
-  marker: (heading_marker) @markup.heading.2
-  (#eq? @markup.heading.2 "##"))
-(heading
-  marker: (heading_marker) @markup.heading.3
-  (#eq? @markup.heading.3 "###"))
-(heading
-  marker: (heading_marker) @markup.heading.4
-  (#eq? @markup.heading.4 "####"))
-(heading
-  marker: (heading_marker) @markup.heading.5
-  (#eq? @markup.heading.5 "#####"))
-(heading
-  marker: (heading_marker) @markup.heading.6
-  (#eq? @markup.heading.6 "######"))
+(heading marker: (heading_marker) @markup.heading.1 (#eq? @markup.heading.1 "#"))
+(heading marker: (heading_marker) @markup.heading.2 (#eq? @markup.heading.2 "##"))
+(heading marker: (heading_marker) @markup.heading.3 (#eq? @markup.heading.3 "###"))
+(heading marker: (heading_marker) @markup.heading.4 (#eq? @markup.heading.4 "####"))
+(heading marker: (heading_marker) @markup.heading.5 (#eq? @markup.heading.5 "#####"))
+(heading marker: (heading_marker) @markup.heading.6 (#eq? @markup.heading.6 "######"))
 
 (slide_delimiter) @punctuation.special
 (container_marker) @punctuation.special
@@ -65,11 +53,9 @@
 (formula_block_content) @markup.math
 (dollar_formula_block_content) @markup.math
 
-; Hide markup punctuation outside Insert mode when conceallevel is enabled.
 ((strong_marker) @conceal (#set! conceal ""))
 ((emphasis_marker) @conceal (#set! conceal ""))
 ((strikethrough_marker) @conceal (#set! conceal ""))
 ((code_span_marker) @conceal (#set! conceal ""))
 ((heading_marker) @conceal (#set! conceal ""))
 ((bullet_marker) @conceal (#set! conceal "•"))
-

@@ -14,4 +14,3 @@
 ((display_formula
   content: (dollar_formula_block_content) @injection.content)
   (#set! injection.language "latex"))
-
