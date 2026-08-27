@@ -1,6 +1,7 @@
 local root = assert(vim.env.SLIDES_NVIM_TEST_ROOT, "SLIDES_NVIM_TEST_ROOT is required")
 
 require("nvim-treesitter").setup({ install_dir = "/tmp/slides-nvim-test/site" })
+vim.cmd("filetype plugin on")
 require("snacks").setup({
   image = {
     enabled = true,
@@ -11,6 +12,7 @@ require("snacks").setup({
 require("slides").setup({ notify_missing_parser = false })
 
 vim.cmd.edit(root .. "/tests/fixture.sly")
+assert(vim.bo.filetype == "sly", "expected the sly filetype")
 assert(vim.tbl_contains(Snacks.image.langs(), "sly"), "Snacks must discover the sly image query")
 
 local matches

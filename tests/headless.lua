@@ -1,9 +1,10 @@
 local root = assert(vim.env.SLIDES_NVIM_TEST_ROOT, "SLIDES_NVIM_TEST_ROOT is required")
 
 require("nvim-treesitter").setup({ install_dir = "/tmp/slides-nvim-test/site" })
-require("slides").setup({ snacks = false, notify_missing_parser = false })
 
+vim.cmd("filetype plugin on")
 assert(vim.filetype.match({ filename = "presentation.sly" }) == "sly", "*.sly must resolve to the sly filetype")
+require("slides").setup({ snacks = false, notify_missing_parser = false })
 
 vim.cmd.edit(root .. "/tests/fixture.sly")
 assert(vim.bo.filetype == "sly", "expected the sly filetype")
