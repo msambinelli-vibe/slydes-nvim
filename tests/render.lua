@@ -32,10 +32,17 @@ for _, kind in ipairs({
   "table_row",
   "link",
   "container",
+  "container_header_background",
+  "container_body_background",
   "container_continuation",
 }) do
   assert((counts[kind] or 0) > 0, "missing rich rendering for " .. kind)
 end
+
+assert(
+  vim.tbl_contains(require("slides.render").defaults.render_modes, "i"),
+  "rendering must stay enabled in Insert mode"
+)
 
 assert(vim.fn.exists(":SlydesToggleRender") == 2, "missing :SlydesToggleRender")
 assert(require("slides.render").toggle(0) == false, "renderer should toggle off")

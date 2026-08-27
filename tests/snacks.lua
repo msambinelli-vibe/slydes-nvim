@@ -27,6 +27,7 @@ assert(vim.bo.filetype == "sly", "expected the sly filetype")
 assert(vim.tbl_contains(Snacks.image.langs(), "sly"), "Snacks must discover the sly image query")
 
 local buf = vim.api.nvim_get_current_buf()
+assert(vim.b[buf].snacks_image_conceal == true, "Slydes images must be concealed by the inline preview")
 assert(
   vim.wait(1000, function()
     return vim.b[buf].snacks_image_attached == true

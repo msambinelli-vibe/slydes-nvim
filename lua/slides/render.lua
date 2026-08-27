@@ -6,7 +6,7 @@ local states = {}
 local defaults = {
   enabled = true,
   debounce = 80,
-  render_modes = { "n", "no", "c" },
+  render_modes = { "n", "no", "i", "c" },
   heading = {
     icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
     foregrounds = { "SlyHeading1", "SlyHeading2", "SlyHeading3", "SlyHeading4", "SlyHeading5", "SlyHeading6" },
@@ -115,11 +115,33 @@ local defaults = {
     icon = "▋",
     continuation = "│",
     highlight = "SlyContainer",
+    header_background = "SlyContainerHead",
+    body_background = "SlyContainerBody",
     kinds = {
-      theorem = { icon = "󰔷 ", highlight = "SlyTheorem" },
-      lemma = { icon = "󰘧 ", highlight = "SlyLemma" },
-      proof = { icon = "󰡱 ", highlight = "SlyProof" },
-      code = { icon = " ", highlight = "SlyCodeBorder" },
+      theorem = {
+        icon = "󰔷 ",
+        highlight = "SlyTheorem",
+        header_background = "SlyTheoremHead",
+        body_background = "SlyTheoremBody",
+      },
+      lemma = {
+        icon = "󰘧 ",
+        highlight = "SlyLemma",
+        header_background = "SlyLemmaHead",
+        body_background = "SlyLemmaBody",
+      },
+      proof = {
+        icon = "󰡱 ",
+        highlight = "SlyProof",
+        header_background = "SlyProofHead",
+        body_background = "SlyProofBody",
+      },
+      code = {
+        icon = " ",
+        highlight = "SlyCodeBorder",
+        header_background = "SlyCodeHead",
+        body_background = "SlyCode",
+      },
       figure = { icon = "󰋩 ", highlight = "SlyFigure" },
       columns = { icon = "󰕰 ", highlight = "SlyColumns" },
       column = { icon = "󰆼 ", highlight = "SlyColumns" },
@@ -160,9 +182,18 @@ local highlight_links = {
   SlyTableRow = "Normal",
   SlyLink = "Underlined",
   SlyContainer = "Special",
+  SlyContainerHead = "Visual",
+  SlyContainerBody = "CursorLine",
   SlyTheorem = "DiagnosticInfo",
+  SlyTheoremHead = "Visual",
+  SlyTheoremBody = "CursorLine",
   SlyLemma = "DiagnosticHint",
+  SlyLemmaHead = "Visual",
+  SlyLemmaBody = "CursorLine",
   SlyProof = "Comment",
+  SlyProofHead = "Visual",
+  SlyProofBody = "CursorLine",
+  SlyCodeHead = "Visual",
   SlyFigure = "Special",
   SlyColumns = "Type",
 }
@@ -409,12 +440,25 @@ local function renderer(buf, config)
         virt_text_pos = "overlay",
       })
     end
+    local body = containers[#containers]
+    if body then
+      mark("container_body_background", line_number - 1, 0, {
+        line_hl_group = body.body_background,
+        priority = 20,
+      })
+    end
     local kind = line:match("^[ \t]*:::%s*([%w_-]+)")
     if kind then
       local custom = config.container.kinds[kind] or {}
       local highlight = custom.highlight or config.container.highlight
+      local header_background = custom.header_background or config.container.header_background
+      local body_background = custom.body_background or config.container.body_background
       local icon = custom.icon or ""
       local _, finish = line:find(":::%s*[%w_-]+")
+      mark("container_header_background", line_number - 1, 0, {
+        line_hl_group = header_background,
+        priority = 30,
+      })
       replace(
         "container",
         line_number - 1,
@@ -427,6 +471,7 @@ local function renderer(buf, config)
         indent = visual_indent,
         byte_indent = byte_indent,
         highlight = highlight,
+        body_background = body_background,
       }
     end
   end

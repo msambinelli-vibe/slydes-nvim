@@ -99,8 +99,9 @@ require("slides").setup({
 })
 ```
 
-Rich rendering is enabled by default in Normal and Command-line modes and is
-removed while inserting text. It is implemented by `slides.nvim` itself and
+Rich rendering remains enabled in Normal, Insert, and Command-line modes. The
+window's `concealcursor` still controls whether markup under the cursor is
+temporarily revealed for editing. It is implemented by `slides.nvim` itself and
 does not require `render-markdown.nvim`. The default appearance deliberately
 uses familiar `RenderMarkdown*`-style concepts while exposing Sly-specific
 highlight groups and container kinds.
@@ -112,7 +113,7 @@ the main extension points; omitted values retain their defaults:
 require("slides").setup({
   render = {
     debounce = 80,
-    render_modes = { "n", "no", "c" },
+    render_modes = { "n", "no", "i", "c" },
     heading = {
       icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
       border = true,
@@ -131,17 +132,30 @@ require("slides").setup({
       },
     },
     container = {
+      header_background = "SlyContainerHead",
+      body_background = "SlyContainerBody",
       kinds = {
-        definition = { icon = "󰙅 ", highlight = "DiagnosticInfo" },
+        definition = {
+          icon = "󰙅 ",
+          highlight = "DiagnosticInfo",
+          header_background = "Visual",
+          body_background = "CursorLine",
+        },
       },
     },
   },
 })
 ```
 
+Set `image_conceal = false` at the top level to keep the source of inline images
+visible. By default, Snacks conceals `![description](path)` whenever its image
+preview is being displayed.
+
 The line ending a slide (`---`, including its attributes) is rendered as the
 full-width thematic separator. A `::: name` line becomes a named block header,
-and its indentation-scoped body receives a quote-like continuation bar.
+and its indentation-scoped body receives a distinct background and a
+quote-like continuation bar. Header and body backgrounds can be configured
+globally or per container kind.
 GitHub and Obsidian callout names are available by default. LaTeX formulas and
 images remain under Snacks so terminal graphics and formula conversion have a
 single owner.

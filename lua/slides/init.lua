@@ -4,6 +4,7 @@ local defaults = {
   compiler = "slydes",
   folding = true,
   markup_preview = true,
+  image_conceal = true,
   render = {},
   snacks = true,
   notify_missing_parser = true,
@@ -96,6 +97,7 @@ function M.attach(buf)
     end
   end
 
+  vim.b[buf].snacks_image_conceal = M.config.image_conceal
   attach_snacks(buf)
   require("slides.render").attach(buf, M.config.render)
 end
