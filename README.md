@@ -12,6 +12,9 @@ Neovim support for the Slydes presentation language (`*.sly`).
   formatted text remains highlighted.
 - Image and LaTeX formula previews through `snacks.nvim` and the Kitty graphics
   protocol.
+- Rich in-buffer rendering for headings, code, slide separators, lists,
+  checkboxes, quotes, callouts, tables, links, and indentation-scoped `:::`
+  containers.
 - Commands for compiling and validating the current presentation.
 - No default keymaps.
 
@@ -90,10 +93,58 @@ require("slides").setup({
   compiler = "slydes",
   folding = true,
   markup_preview = true,
+  render = {},
   snacks = true,
   notify_missing_parser = true,
 })
 ```
+
+Rich rendering is enabled by default in Normal and Command-line modes and is
+removed while inserting text. It is implemented by `slides.nvim` itself and
+does not require `render-markdown.nvim`. The default appearance deliberately
+uses familiar `RenderMarkdown*`-style concepts while exposing Sly-specific
+highlight groups and container kinds.
+
+Every renderer can be customized through `render`. The following example shows
+the main extension points; omitted values retain their defaults:
+
+```lua
+require("slides").setup({
+  render = {
+    debounce = 80,
+    render_modes = { "n", "no", "c" },
+    heading = {
+      icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+      border = true,
+      padding = 1,
+      width = "full",
+    },
+    slide = { icon = "─", width = "full" },
+    checkbox = {
+      custom = {
+        blocked = { raw = "[!]", icon = "󰀪 ", highlight = "DiagnosticWarn" },
+      },
+    },
+    link = {
+      custom = {
+        { pattern = "^https://github.com", icon = " " },
+      },
+    },
+    container = {
+      kinds = {
+        definition = { icon = "󰙅 ", highlight = "DiagnosticInfo" },
+      },
+    },
+  },
+})
+```
+
+The line ending a slide (`---`, including its attributes) is rendered as the
+full-width thematic separator. A `::: name` line becomes a named block header,
+and its indentation-scoped body receives a quote-like continuation bar.
+GitHub and Obsidian callout names are available by default. LaTeX formulas and
+images remain under Snacks so terminal graphics and formula conversion have a
+single owner.
 
 The markup delimiters are visible in Insert mode and concealed in Normal and
 Command-line modes. This makes editing predictable while preserving a clean
@@ -107,6 +158,7 @@ reading view.
 | `:SlydesBuild` | Compile the current file with `slydes`. |
 | `:SlydesCheck` | Run `slydes --check` on the current file. |
 | `:SlydesToggleMarkup` | Toggle markup concealment in the current window. |
+| `:SlydesToggleRender` | Toggle rich rendering in the current Sly buffer. |
 | `:SlydesImageHover` | Ask Snacks to preview the image or formula at the cursor. |
 | `:SlydesHealth` | Report parser, terminal-image, and math status. |
 

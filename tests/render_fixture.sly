@@ -1,0 +1,41 @@
++++
+title = "Rich rendering"
++++
+
+Examples
+========
+
+# Heading one
+
+## Heading two
+
+Text with `inline code` and an [external link](https://example.com).
+
+- First item
+  - Nested item
+- [ ] Pending item
+- [x] Finished item
+- [-] Active item
+
+> A plain quotation.
+> [!NOTE] A useful callout
+> Its continuation.
+
+| Name | Value | Center |
+| :--- | ---: | :---: |
+| alpha | 12 | yes |
+| beta | 7 | no |
+
+```lua
+local answer = 42
+print(answer)
+```
+
+::: theorem {.important}
+  Every finite tree has a leaf.
+
+  ::: proof
+    Take a longest path.
+
+--- {.dark}
+

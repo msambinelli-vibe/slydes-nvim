@@ -39,5 +39,6 @@ assert(vim.fn.foldlevel(13) >= 3, "column structures must be nested folds")
 
 assert(vim.fn.exists(":SlydesBuild") == 2, "missing :SlydesBuild")
 assert(vim.fn.exists(":SlydesImageHover") == 2, "missing :SlydesImageHover")
+assert(vim.fn.exists(":SlydesToggleRender") == 2, "missing :SlydesToggleRender")
 
 print("slides.nvim headless checks: ok")

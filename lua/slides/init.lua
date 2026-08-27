@@ -4,6 +4,7 @@ local defaults = {
   compiler = "slydes",
   folding = true,
   markup_preview = true,
+  render = {},
   snacks = true,
   notify_missing_parser = true,
 }
@@ -96,6 +97,7 @@ function M.attach(buf)
   end
 
   attach_snacks(buf)
+  require("slides.render").attach(buf, M.config.render)
 end
 
 local function run_compiler(check_only)
@@ -177,6 +179,10 @@ function M._bootstrap()
     M.toggle_markup_preview,
     { desc = "Toggle Slydes markup concealment" }
   )
+  vim.api.nvim_create_user_command("SlydesToggleRender", function()
+    local enabled = require("slides.render").toggle(0)
+    vim.notify("Slydes rendering " .. (enabled and "enabled" or "disabled"), vim.log.levels.INFO)
+  end, { desc = "Toggle rich Slydes rendering" })
   vim.api.nvim_create_user_command("SlydesImageHover", function()
     local snacks = rawget(_G, "Snacks")
     if snacks and snacks.image then
