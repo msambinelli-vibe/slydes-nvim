@@ -5,15 +5,44 @@ vim.cmd("filetype plugin on")
 require("snacks").setup({
   image = {
     enabled = true,
-    doc = { enabled = true, inline = false, float = false },
+    doc = { enabled = true, inline = true, float = true },
     math = { enabled = true },
   },
 })
+Snacks.image.terminal._terminal = {
+  terminal = "kitty",
+  version = "test",
+  supported = true,
+  placeholders = true,
+}
+Snacks.image.terminal._env = {
+  name = "kitty",
+  supported = true,
+  placeholders = true,
+}
 require("slides").setup({ notify_missing_parser = false })
 
 vim.cmd.edit(root .. "/tests/fixture.sly")
 assert(vim.bo.filetype == "sly", "expected the sly filetype")
 assert(vim.tbl_contains(Snacks.image.langs(), "sly"), "Snacks must discover the sly image query")
+
+local buf = vim.api.nvim_get_current_buf()
+assert(
+  vim.wait(1000, function()
+    return vim.b[buf].snacks_image_attached == true
+  end),
+  "Snacks image preview did not attach"
+)
+local inline_group = "snacks.image.inline." .. buf
+assert(
+  vim.tbl_contains(
+    vim.tbl_map(function(autocmd)
+      return autocmd.group_name
+    end, vim.api.nvim_get_autocmds({ event = "BufWinEnter", buffer = buf })),
+    inline_group
+  ),
+  "Snacks inline preview attached to the wrong buffer"
+)
 
 local matches
 Snacks.image.doc.find(0, function(found)

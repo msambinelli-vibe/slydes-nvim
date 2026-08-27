@@ -68,6 +68,9 @@ end
 
 function M.attach(buf)
   buf = buf or 0
+  if buf == 0 then
+    buf = vim.api.nvim_get_current_buf()
+  end
   vim.bo[buf].commentstring = ""
 
   if parser_available() then
