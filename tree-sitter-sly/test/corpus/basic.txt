@@ -1,0 +1,97 @@
+==================
+Complete document
+==================
+
++++
+title = "A talk"
+author = "Ada"
+toc = true
++++
+
+Introduction
+============
+
+# First *slide*
+
+::: columns(2fr, 1fr) {gap=2rem}
+
+![A graph](figs/graph.svg){.hero}
+
+Text with **bold**, *italic*, `code`, and $x+y$.
+
+--- {.dark}
+
+---
+
+(source_file
+  (blank_line)
+  (metadata
+    open: (metadata_delimiter)
+    (metadata_entry
+      key: (identifier)
+      value: (string))
+    (metadata_entry
+      key: (identifier)
+      value: (string))
+    (metadata_entry
+      key: (identifier)
+      value: (boolean))
+    close: (metadata_delimiter))
+  (blank_line)
+  (paragraph
+    (text))
+  (section_underline
+    marker: (section_marker))
+  (blank_line)
+  (heading
+    marker: (heading_marker)
+    content: (text)
+    content: (emphasis
+      (emphasis_marker)
+      content: (emphasis_text)
+      (emphasis_marker)))
+  (blank_line)
+  (container
+    (container_marker)
+    kind: (identifier)
+    (argument_list
+      (argument)
+      (argument))
+    (attributes
+      (key_value_attribute
+        key: (attribute_name)
+        value: (attribute_value))))
+  (blank_line)
+  (image
+    description: (link_text)
+    destination: (link_destination)
+    (attributes
+      (class)))
+  (blank_line)
+  (paragraph
+    (text)
+    (strong_emphasis
+      (strong_marker)
+      content: (strong_text)
+      (strong_marker))
+    (text)
+    (emphasis
+      (emphasis_marker)
+      content: (emphasis_text)
+      (emphasis_marker))
+    (text)
+    (code_span
+      (code_span_marker)
+      content: (code_span_content)
+      (code_span_marker))
+    (text)
+    (inline_formula
+      (math_delimiter)
+      content: (formula_content)
+      (math_delimiter))
+    (text))
+  (blank_line)
+  (slide_end
+    (slide_delimiter)
+    (attributes
+      (class))))

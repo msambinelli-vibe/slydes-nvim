@@ -1,0 +1,27 @@
+{
+  "name": "tree-sitter-sly",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for the Slydes presentation language",
+  "main": "bindings/node",
+  "keywords": ["incremental", "parsing", "tree-sitter", "slydes"],
+  "license": "MIT",
+  "dependencies": {
+    "node-addon-api": "^8.0.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.10"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.sly",
+      "file-types": ["sly"],
+      "injection-regex": "^sly$"
+    }
+  ]
+}
+

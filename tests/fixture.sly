@@ -1,0 +1,32 @@
++++
+title = "Plugin test"
+author = "Ada"
++++
+
+Introduction
+============
+
+# First slide
+
+Text with **bold**, *italic*, ~~deleted~~, `code`, and $x^2+y^2=z^2$.
+
+::: columns(2fr, 1fr) {gap=2rem}
+  ::: column {width=2fr}
+    ![A graph](figs/graph.svg)
+
+  ::: column {width=1fr}
+    ::: theorem {.fragment}
+      A useful statement.
+
+\[
+  \sum_{v\in V(G)} d(v)=2|E(G)|
+\]
+
+--- {.dark}
+
+# Second slide
+
+- Another item.
+
+---
+
