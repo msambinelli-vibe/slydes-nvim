@@ -138,8 +138,8 @@ require("slides").setup({
         definition = {
           icon = "󰙅 ",
           highlight = "DiagnosticInfo",
-          header_background = "Visual",
-          body_background = "CursorLine",
+          header_background = "CursorLine",
+          body_background = "NormalFloat",
         },
       },
     },

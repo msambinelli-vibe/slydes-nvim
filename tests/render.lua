@@ -43,6 +43,14 @@ assert(
   vim.tbl_contains(require("slides.render").defaults.render_modes, "i"),
   "rendering must stay enabled in Insert mode"
 )
+assert(
+  vim.api.nvim_get_hl(0, { name = "SlyContainerHead", link = true }).link == "CursorLine",
+  "container headers must use their own background"
+)
+assert(
+  vim.api.nvim_get_hl(0, { name = "SlyContainerBody", link = true }).link == "NormalFloat",
+  "container bodies must use the darker block background"
+)
 
 assert(vim.fn.exists(":SlydesToggleRender") == 2, "missing :SlydesToggleRender")
 assert(require("slides.render").toggle(0) == false, "renderer should toggle off")
